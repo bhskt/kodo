@@ -1,0 +1,32 @@
+{
+  "name": "kodo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production NODE_NO_WARNINGS=1 node --experimental-json-modules server.js",
+    "start:dev": "DEBUG=* NODE_ENV=development NODE_NO_WARNINGS=1 PORT=3000 nodemon --ignore client/ --experimental-json-modules server.js",
+    "test": "NODE_NO_WARNINGS=1 node --experimental-vm-modules ./node_modules/.bin/jest"
+  },
+  "dependencies": {
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "jest": "^26.6.3",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.7"
+  },
+  "engines": {
+    "node": ">=14.17.0",
+    "npm": ">=6.14.13"
+  },
+  "type": "module",
+  "config": {
+    "database": {
+      "filePath": "mock-data.json"
+    }
+  },
+  "testConfig": {
+    "database": {
+      "filePath": "test-data.json"
+    }
+  }
+}

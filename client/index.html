@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <title>Kodo</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/normalize.min.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <meta name="theme-color" content="#FAFAFA" />
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>Feed</h1>
+
+      <div id="controls">
+        <div id="search">
+          <form v-on:submit.prevent="handleSearch">
+            <input
+              v-model.trim="query"
+              name="search"
+              placeholder="Search"
+              type="text"
+            />
+          </form>
+        </div>
+
+        <div id="sort">
+          <form>
+            <label for="sort">Sort By</label>
+
+            <select v-model="sort" name="sort" v-on:change="handleSort">
+              <option value="title" selected>Title</option>
+              <option value="dateLastEdited">Last Edited</option>
+            </select>
+          </form>
+        </div>
+      </div>
+
+      <div id="posts">
+        <div
+          v-for="(post, index) in posts"
+          v-bind:key="index"
+          class="post-container"
+        >
+          <div class="post">
+            <div class="image-container">
+              <img v-bind:src="post.image" />
+            </div>
+
+            <div style="margin: 1em">
+              <div>
+                <span>Title</span>
+
+                <strong>{{ post.title }}</strong>
+              </div>
+
+              <p style="text-align: justify">{{ post.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="posts-tabular">
+        <h2>Tabular Display</h2>
+
+        <table>
+          <tr>
+            <th>Image URL</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Last Edited At</th>
+          </tr>
+
+          <tr
+            v-for="(post, index) in posts"
+            v-bind:key="index"
+            style="text-align: center"
+          >
+            <td>
+              <a v-bind:href="post.image" target="_blank">{{ post.image }}</a>
+            </td>
+            <td>{{ post.title }}</td>
+            <td style="text-align: justify">{{ post.description }}</td>
+            <td>{{ post.dateLastEdited }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="pagination">
+        <form>
+          <label for="page">Page</label>
+
+          <select v-model="page" name="page" v-on:change="handlePage">
+            <option
+              v-for="page in [...Array(pages).keys()]"
+              v-bind:key="page"
+              v-bind:value="page + 1"
+            >
+              {{ page + 1 }}
+            </option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/vue.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
